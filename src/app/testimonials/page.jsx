@@ -9,7 +9,7 @@ const initialItrTestimonials = [
   {
     name: "VIVEK KUMAR",
     profession: "Software Engineer",
-    photo: "/assets/testimonials/vivek.png",
+    photo: "/assets/testimonials/vive.jpeg",
     rating: "★★★★★",
     review: "I had a seamless experience getting my ITR filed with LV TAX CONSULTANCY. Their attention to detail ensured that I maximized my tax savings while staying fully compliant. Highly recommended!",
   },
@@ -23,7 +23,7 @@ const initialItrTestimonials = [
   {
     name: "ADITYA KUMAR PANDEY ",
     profession: "Srichatinaya Institute",
-    photo: "/assets/testimonials/aditya.png",
+    photo: "/assets/testimonials/adity.jpeg",
     rating: "★★★★★",
     review: "Excellent service! They guided me through every step of my tax filing, ensuring everything was accurate and compliant. Will definitely return next year!.Highly recommended for a reliable tax consultant!”.",
   },
@@ -37,14 +37,14 @@ const initialItrTestimonials = [
   {
     name: "SAYAK ARORA ",
     profession: "Businessman",
-    photo: "/assets/testimonials/sayak.png",
+    photo: "/assets/testimonials/saya.jpeg",
     rating: "★★★★★",
     review: "Professional, reliable, and extremely knowledgeable. LV TAX CONSULTANCY made my tax filing effortless!",
   },
   {
     name: "ROHIT BAJAJ ",
     profession: "Resonance Edv.",
-    photo: "/assets/testimonials/rohitb.png",
+    photo: "/assets/testimonials/rohitb.jpeg",
     rating: "★★★★★",
     review: "Amazing customer service! They patiently explained everything and ensured I got the best returns and no any complaint till now. Thank you!",
   },  
@@ -75,7 +75,7 @@ const initialItrTestimonials = [
   }, {
     name: "ROHIT DIXIT ",
     profession: "Aakash Institute",
-    photo: "/assets/testimonials/rohitd.png",
+    photo: "/assets/testimonials/rohitd.jpeg",
     rating: "★★★★★",
     review: "rompt responses, thorough explanations, and a smooth process—LV TAX CONSULTANCY is the best!",
   }, {
@@ -99,7 +99,7 @@ const initialItrTestimonials = [
   }, {
     name: "MUSKAN KUMARI",
     profession: "Aakash Institute",
-    photo: "/assets/testimonials/muskan.png",
+    photo: "/assets/testimonials/MUSKAN.jpeg",
     rating: "★★★★★",
     review: "They explained everything clearly and made sure I understood my tax situation.",
   }, {
