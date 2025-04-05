@@ -166,21 +166,21 @@ const initialGstTestimonials = [
     profession: "Jewellery Shop Owner",
     photo: "/assets/testimonials/rahul.jpg",
     rating: "★★★★★",
-    review: "Vivek provided excellent guidance on GST filing. His expertise made the process smooth and hassle-free. Highly recommended!",
+    review: "They helped me understand my taxes and provided valuable financial advice. Great team, Highly recommended!",
   },
   {
     name: "UDAY VERMA ",
     profession: "Jewellery Shop",
     photo: "/assets/testimonials/priya.jpg",
     rating: "★★★★",
-    review: "I had a great experience working with Vivek. He explained GST compliance clearly and helped me avoid penalties.",
+    review: "I had a great experience working with Vikash. He explained GST compliance clearly and helped me avoid penalties.",
   },
   {
     name: "AMIT KUMAR",
     profession: "Jewellery Shop",
     photo: "/assets/testimonials/amit.jpg",
     rating: "★★★★★",
-    review: "Vivek’s GST consultancy saved me a lot of money. His attention to detail is outstanding!",
+    review: "Vikash’s GST consultancy saved me a lot of money. His attention to detail is outstanding!",
   },
 ];
 

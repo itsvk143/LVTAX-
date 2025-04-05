@@ -148,7 +148,7 @@ const IncomeTaxCalculator = () => {
       {/* Left Section: Inputs */}
       
       <div className="  bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full md:w-1/2 p-2 ">
-        <h2 className="text-2xl font-bold text-center mb-6">Income Tax Calculator For Salaried </h2>
+        <h2 className="text-2xl font-bold text-center mb-6">Income Tax Calculator For Salaried <br /> (AY 2026-2027 onward) </h2>
         {[
           ["Annual CTC", ctc, setCtc],
           ["HRA Exemption (Annual House Rent)", hra, setHra],
@@ -213,7 +213,7 @@ const IncomeTaxCalculator = () => {
 </ul>
  <br />
 
- <h3 className="text-lg font-semibold mb-2">🔹 New Regime</h3>
+ <h3 className="text-lg font-semibold mb-2">🔹 New Regime<br />(AY 2026-2027 onward)</h3>
  <ul>
   {TAX_SLABS_NEW.map((slab, index) => {
     const previousLimit = index === 0 ? 0 : TAX_SLABS_NEW[index - 1].limit;
