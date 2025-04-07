@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 const offer = () => {
   const images = [
     "/assets/offer/1.png",
-    "/assets/gallery/photo2.jpg",,
   ];
 
   const handleImageClick = (src) => {

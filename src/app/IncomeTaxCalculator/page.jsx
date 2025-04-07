@@ -158,13 +158,9 @@ const IncomeTaxCalculator = () => {
     
     
     <motion.div
-    
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.4, ease: "easeIn" } }}
-      className="min-h-[80vh] flex items-start justify-between px-12 py-12 space-x-8"
-      
-      
-
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.4, ease: "easeIn" } }}
+    className="min-h-[80vh] flex flex-col-reverse md:flex-row items-start justify-between px-4 md:px-12 py-12 gap-6"
     >
       {/* Left Section: Inputs */}
       
