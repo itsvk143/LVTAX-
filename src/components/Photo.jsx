@@ -41,8 +41,8 @@ const Photo = () => {
           {/* Circle 1 */}
           <motion.circle
             cx="253"
-            cy="240"
-            r="235"
+            cy="253"
+            r="245"
             stroke="#00ff99"
             strokeWidth="3"
             strokeLinecap="round"
@@ -62,8 +62,8 @@ const Photo = () => {
           {/* Circle 2 */}
           <motion.circle
             cx="253"
-            cy="240"
-            r="230"
+            cy="253"
+            r="240"
             stroke="#00ff99"
             strokeWidth="2"
             strokeLinecap="round"
@@ -83,8 +83,8 @@ const Photo = () => {
           {/* Circle 3 */}
           <motion.circle
             cx="253"
-            cy="240"
-            r="225"
+            cy="253"
+            r="235"
             stroke="#00ff99"
             strokeWidth="1"
             strokeLinecap="round"

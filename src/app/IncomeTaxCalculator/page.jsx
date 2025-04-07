@@ -2,6 +2,26 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { Button } from "@/components/ui/button"; // Update path if needed
+
+export function TaxCalculatorLink() {
+  return (
+    <div className="text-white text-center my-6">
+      <Link href="/CalculatorFY2425" passHref>
+        <Button
+          variant="outline"
+          size="lg"
+          className="hover:bg-white hover:text-black transition duration-300"
+        >
+          CLICK HERE FOR TAX CALCULATON OF AY 2025–2026
+        </Button>
+      </Link>
+    </div>
+  );
+}
+
+
 
 const TAX_SLABS_OLD = [
   { limit: 250000, rate: 0 },
@@ -143,11 +163,14 @@ const IncomeTaxCalculator = () => {
       animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.4, ease: "easeIn" } }}
       className="min-h-[80vh] flex items-start justify-between px-12 py-12 space-x-8"
       
+      
 
     >
       {/* Left Section: Inputs */}
       
       <div className="  bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full md:w-1/2 p-2 ">
+      <TaxCalculatorLink />
+
         <h2 className="text-2xl font-bold text-center mb-6">Income Tax Calculator For Salaried <br /> (AY 2026-2027 onward) </h2>
         {[
           ["Annual CTC", ctc, setCtc],
@@ -195,7 +218,6 @@ const IncomeTaxCalculator = () => {
 {/* Right Section: Tax Slabs */}
 <div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-full max-w-sm">
  <h2 className="text-xl font-bold text-center mb-4">📋 Tax Slabs</h2>
- 
  <h3 className="text-lg font-semibold mb-2">🔹 Old Regime</h3>
  <ul className="mb-10">
   {TAX_SLABS_OLD.map((slab, index) => {

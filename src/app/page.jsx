@@ -21,11 +21,11 @@ const Home = () => {
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
             Experienced Tax Consultant specializing in <br />
-            <span className="text-accent">* </span>
+            <span className="text-accent">=o= </span>
               FINANCIAL ADVISORY SERVICES.<br />
-             <span className="text-accent">* </span>
+             <span className="text-accent">=o= </span>
               TAX PLANNING<br />
-             <span className="text-accent">* </span>
+             <span className="text-accent">=o= </span>
               TAX COMPLIANCE<br />
           
             Skilled in optimizing tax strategies for <br /> INDIVIDUALS and BUSINESSES to MAXIMIZE SAVING <br />while ensuring full LEGAL compliance
@@ -55,6 +55,7 @@ const Home = () => {
           </div>
           <div className="order-1 xl:order-none mb-8 xl:mb-0">
             <Photo />
+            
           </div>
         </div>
         <MarqueeNews /><br />

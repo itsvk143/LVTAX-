@@ -22,11 +22,17 @@ const Header = () => {
         {/* Desktop Navigation */}
         <div className="hidden xl:flex items-center gap-8">
           <Nav />
+          {/* <Link href="/">
+            <Button>Hire Me</Button>
+          </Link> */}
         </div>
 
         {/* Mobile Navigation */}
         <div className="xl:hidden">
           <MobileNav />
+          {/* <Link href="/">
+            <Button>Hire Me</Button>
+          </Link> */}
         </div>
       </div>
     </header>

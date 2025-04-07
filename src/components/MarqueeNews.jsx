@@ -9,6 +9,7 @@ const newsItems = [
   <>
      After <span className="text-red-500 font-bold">31st July</span>, New Tax Regime is default for Tax filing and no change in Regime is possible (except for revised return) after <span className="text-red-500 font-bold">31st July</span>.
   </>,
+
 ];
 
 const MarqueeNews = () => {

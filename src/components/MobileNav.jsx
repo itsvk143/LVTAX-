@@ -28,6 +28,10 @@ const links = [
     name: "contact",
     path: "/contact",
   },
+  {
+    name: "Offers",
+    path: "/offer",
+  },
 ];
 
 const MobileNav = () => {
@@ -48,21 +52,24 @@ const MobileNav = () => {
                         </Button>
           </Link>
         
-        <nav className="flex flex-col justify-center items-center gap-8 ">
-          {links.map((link, index) => {
-            return (
-              <Link
-                href={link.path}
-                key={index}
-                className={`${
-                  link.path === pathname &&
-                  "text-accent border-b-2 border-accent"
-                }text-xl capitalize hover:text-accent transional-all`}
-              >
-                {link.name}
-              </Link>
-            );
-          })}
+          <nav className="flex flex-col justify-center items-center gap-8">
+            {links.map((link, index) => {
+              const isActive = link.path === pathname;
+              const isOffer = link.name.toLowerCase() === "offers";
+
+              return (
+                <Link
+                  href={link.path}
+                  key={index}
+                  className={`capitalize text-xl transition-all px-3 py-1 rounded
+                    ${isActive ? "text-accent border-b-2 border-accent" : ""}
+                    ${isOffer ? "border border-accent text-accent" : "hover:text-accent"}
+                  `}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
         </nav>
         </div>
       </SheetContent>
