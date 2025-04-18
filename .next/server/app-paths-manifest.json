@@ -1,5 +1,5 @@
 {
-  "/IncomeTaxCalculator/page": "app/IncomeTaxCalculator/page.js",
-  "/offer/page": "app/offer/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/contact/page": "app/contact/page.js"
 }

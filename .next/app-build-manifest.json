@@ -11,15 +11,10 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/offer/page": [
+    "/contact/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/offer/page.js"
-    ],
-    "/IncomeTaxCalculator/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/IncomeTaxCalculator/page.js"
+      "static/chunks/app/contact/page.js"
     ]
   }
 }

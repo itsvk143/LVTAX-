@@ -56,28 +56,49 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyhdnDCDQ7CWjplVMkDd7dojO6V1WYcuSaWCx4VjpGhGtilU1XrPanAQpZNfKN4J8p-fQ/exec",
+        "https://script.google.com/macros/s/AKfycbzbfOVR7b1evcCpxNfeKwfKtYksgpWtKFuhwCNo6c8adCsnotQGdORtwHVXrY_14ybi-g/exec",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          mode: "no-cors", // optional, only use this if you don't need the response data
         }
       );
-      const result = await response.json();
-      alert("Message sent successfully!");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
-      });
+
+      let result;
+      try {
+        result = await response.json();
+      } catch (jsonError) {
+        const text = await response.text();
+        console.error("Failed to parse JSON:", jsonError, "Raw response:", text);
+        alert("Failed to send message. Server returned invalid response.\n" + text);
+        return;
+      }
+
+      if (!response.ok) {
+        console.error("HTTP error:", response.status, result);
+        alert("Failed to send message. HTTP status: " + response.status + "\n" + (result.message || JSON.stringify(result)));
+        return;
+      }
+
+      if (result.result === "Success") {
+        alert("Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+      } else {
+        alert("Failed to send message: " + (result.message || "Unknown error"));
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to send message. Please try again.");
+      alert("Failed to send message. Please try again.\n" + error);
     }
   };
 
@@ -131,7 +152,10 @@ const Contact = () => {
                   required
                 />
               </div>
-              <Select onValueChange={handleSelectChange}>
+              <Select
+                value={formData.service}
+                onValueChange={handleSelectChange}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a service" />
                 </SelectTrigger>
