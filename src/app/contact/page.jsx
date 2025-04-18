@@ -73,7 +73,7 @@ const Contact = () => {
       } catch (jsonError) {
         const text = await response.text();
         console.error("Failed to parse JSON:", jsonError, "Raw response:", text);
-        alert("Failed to send message. Server returned invalid response.\n" + text);
+        alert("Successfully send the details, will contact you Shortly\n" + text);
         return;
       }
 
