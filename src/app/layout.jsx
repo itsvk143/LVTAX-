@@ -12,7 +12,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: "Vikash Portfolio",
+  title: "LVTAX CONSULTANT",
   description: "Created by Vivek",
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={jetbrainsMono.variable}>
         <Header />
-        <StairTransition/>
+        <StairTransition />
         <PageTransition>{children}</PageTransition>
       </body>
     </html>

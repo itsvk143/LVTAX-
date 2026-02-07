@@ -3,23 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button } from "@/components/ui/button"; // Update path if needed
-
-export function TaxCalculatorLink() {
-  return (
-    <div className="text-white text-center my-6">
-      <Link href="/CalculatorFY2425" passHref>
-        <Button
-          variant="outline"
-          size="lg"
-          className="hover:bg-white hover:text-black transition duration-300"
-        >
-          CLICK HERE FOR TAX CALCULATON OF AY 2025–2026
-        </Button>
-      </Link>
-    </div>
-  );
-}
+import { Button } from "@/components/ui/button";
 
 
 
@@ -93,11 +77,20 @@ const IncomeTaxCalculator = () => {
     const deduction80CValue = Math.min(parseNumber(deduction80C), 150000);
     const deduction80CCDValue = Math.min(parseNumber(deduction80CCD), 50000);
     const deduction80CCD2Value = parseNumber(deduction80CCD2);
-    const deduction80DselfValue = Math.min(parseNumber(deduction80Dself), 50000);
-    const deduction80DdependentValue = Math.min(parseNumber(deduction80Ddependent), 50000);
+    const deduction80DselfValue = Math.min(
+      parseNumber(deduction80Dself),
+      50000
+    );
+    const deduction80DdependentValue = Math.min(
+      parseNumber(deduction80Ddependent),
+      50000
+    );
     const donations80GValue = parseNumber(donations80G);
     const donations80GGCValue = parseNumber(donations80GGC);
-    const savingsInterest80TTAValue = Math.min(parseNumber(savingsInterest80TTA), 10000);
+    const savingsInterest80TTAValue = Math.min(
+      parseNumber(savingsInterest80TTA),
+      10000
+    );
     const homeLoanInterestValue = parseNumber(homeLoanInterest);
     const otherDeductionsValue = parseNumber(otherDeductions);
 
@@ -105,14 +98,18 @@ const IncomeTaxCalculator = () => {
     const standardDeductionNew = 75000;
 
     const totalDeductionsOld =
-      standardDeductionOld + hraValue + deduction80CValue + deduction80CCDValue + deduction80CCD2Value + deduction80DselfValue +
+      standardDeductionOld +
+      hraValue +
+      deduction80CValue +
+      deduction80CCDValue +
+      deduction80CCD2Value +
+      deduction80DselfValue +
       deduction80DdependentValue +
       donations80GValue +
       savingsInterest80TTAValue +
       homeLoanInterestValue +
       donations80GGCValue +
       otherDeductionsValue;
-;
 
     const taxableIncomeOld = Math.max(ctcValue - totalDeductionsOld, 0);
     let taxOld = calculateTax(taxableIncomeOld, TAX_SLABS_OLD);
@@ -130,15 +127,23 @@ const IncomeTaxCalculator = () => {
     const expert80C = 150000; // Maximize 80C if not already maxed
     const expert80D = 75000; // Health Insurance for family
     const expert80CCD = 50000; // Max NPS Self Contribution
-    const expert80G = 50000; // NGO DONATION 
+    const expert80G = 50000; // NGO DONATION
     const expertLTA = 80000; // LTA
     const expertsection14 = 150000; // EXPANSES
 
-
-
-
     const expertDeductionsOld =
-      standardDeductionOld + hraValue + expert80C + expert80D + expert80CCD + expert80G + expertLTA+ expertsection14+ homeLoanInterestValue+ donations80GGCValue+ otherDeductionsValue+ deduction80DselfValue ;
+      standardDeductionOld +
+      hraValue +
+      expert80C +
+      expert80D +
+      expert80CCD +
+      expert80G +
+      expertLTA +
+      expertsection14 +
+      homeLoanInterestValue +
+      donations80GGCValue +
+      otherDeductionsValue +
+      deduction80DselfValue;
 
     const expertTaxableIncomeOld = Math.max(ctcValue - expertDeductionsOld, 0);
     let expertTaxOld = calculateTax(expertTaxableIncomeOld, TAX_SLABS_OLD);
@@ -152,103 +157,188 @@ const IncomeTaxCalculator = () => {
     setExpertOldRegimeTax(expertTaxOld.toLocaleString("en-IN"));
     setExpertNewRegimeTax(expertTaxNew.toLocaleString("en-IN"));
   };
-  
 
   return (
-    
-    
-    <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.4, ease: "easeIn" } }}
-    className="min-h-[80vh] flex flex-col-reverse md:flex-row items-start justify-between px-4 md:px-12 py-12 gap-6"
-    >
-      {/* Left Section: Inputs */}
-      
-      <div className="  bg-gray-800 text-white p-8 rounded-lg shadow-lg w-full md:w-1/2 p-2 ">
-      <TaxCalculatorLink />
-
-        <h2 className="text-2xl font-bold text-center mb-6">Income Tax Calculator For Salaried <br /> (AY 2026-2027 onward) </h2>
-        {[
-          ["Annual CTC", ctc, setCtc],
-          ["HRA Exemption (Annual House Rent)", hra, setHra],
-          ["80C Deductions", deduction80C, setDeduction80C],
-          ["80CCD (NPS Self)", deduction80CCD, setDeduction80CCD],
-          ["80CCD2 (NPS Employer)", deduction80CCD2, setDeduction80CCD2],
-          ["80D (Health Insurance Self)", deduction80Dself, setDeduction80Dself],
-          ["80D (Health Insurance Dependent)", deduction80Ddependent, setDeduction80Ddependent],
-          ["80G (NGO Donations)", donations80G, setDonations80G],
-          ["80GGC (Political Party Donations)", donations80GGC, setDonations80GGC],
-          ["80TTA (Savings Interest)", savingsInterest80TTA, setSavingsInterest80TTA],
-          ["24b (Home Loan Interest)", homeLoanInterest, setHomeLoanInterest],
-          ["Other Deductions", otherDeductions, setOtherDeductions],
-        ].map(([label, value, setter], index) => (
-          <div key={index} className="mb-4">
-            <label className="block mb-2">{label} (₹)</label>
-            <input
-              type="text"
-              value={value}
-              onChange={handleInputChange(setter)}
-              className="w-full p-2 rounded bg-gray-700 text-white"
-              placeholder={`Enter ${label}`}
-            />
-          </div>
-        ))}
-
-        <button onClick={handleCalculate} className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-          Calculate Tax
-        </button>
-
-        {oldRegimeTax !== null && newRegimeTax !== null && expertOldRegimeTax !== null && expertNewRegimeTax !== null && (
-          <div className="mt-6">
-            <h3 className="text-sm font-bold mb-2">📊 Tax Comparison</h3>
-            <p>📌 Old Regime Tax: ₹{oldRegimeTax}</p>
-             <p>📌 New Regime Tax: ₹{newRegimeTax}</p>
-            <h3 className="text-sm font-bold mt-4 mb-2">💡Tax Calculation by Expert advice </h3>
-            <p>✅ Old Regime Tax(Expert): ₹{expertOldRegimeTax}</p>
-
-            {/* <p>✅ New Regime Tax(Expert): ₹{expertNewRegimeTax}</p> */}
-          </div>
-        )}
+    <div className="min-h-screen bg-slate-950 text-white relative overflow-hidden font-sans">
+      {/* Background Gradients */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-900/30 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-indigo-900/30 rounded-full blur-[120px]" />
       </div>
 
-{/* Right Section: Tax Slabs */}
-<div className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-full max-w-sm">
- <h2 className="text-xl font-bold text-center mb-4">📋 Tax Slabs</h2>
- <h3 className="text-lg font-semibold mb-2">🔹 Old Regime</h3>
- <ul className="mb-10">
-  {TAX_SLABS_OLD.map((slab, index) => {
-    const previousLimit = index === 0 ? 0 : TAX_SLABS_OLD[index - 1].limit;
-    return (
-      <li key={index} className="border-b py-1">
-        <span className="font-medium">
-          ₹{previousLimit.toLocaleString("en-IN") +1 } - ₹
-          {slab.limit === Infinity ? "Above" : slab.limit.toLocaleString("en-IN")}
-        </span>{" "}
-        — {slab.rate}%
-      </li>
-    );
-  })}
-</ul>
- <br />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="container mx-auto px-4 py-12"
+      >
 
- <h3 className="text-lg font-semibold mb-2">🔹 New Regime<br />(AY 2026-2027 onward)</h3>
- <ul>
-  {TAX_SLABS_NEW.map((slab, index) => {
-    const previousLimit = index === 0 ? 0 : TAX_SLABS_NEW[index - 1].limit;
-    return (
-      <li key={index} className="border-b py-1">
-        <span className="font-medium">
-          ₹{previousLimit.toLocaleString("en-IN")+1 } - ₹
-          {slab.limit === Infinity ? "Above" : slab.limit.toLocaleString("en-IN")}
-        </span>{" "}
-        — {slab.rate}%
-      </li>
-    );
-  })}
-</ul>
-</div>
-</motion.div>
-);
+        <div className="flex flex-col xl:flex-row gap-8 items-start justify-center">
+          {/* Main Calculator Section */}
+          <div className="w-full xl:w-2/3 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+              Income Tax Calculator <br />
+              <span className="text-sm md:text-lg font-normal text-gray-400">
+                (Salaried • AY 2026-2027 onward)
+              </span>
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                ["Annual CTC", ctc, setCtc],
+                ["HRA Exemption", hra, setHra],
+                ["80C Deductions", deduction80C, setDeduction80C],
+                ["80CCD (NPS Self)", deduction80CCD, setDeduction80CCD],
+                ["80CCD2 (NPS Employer)", deduction80CCD2, setDeduction80CCD2],
+                ["80D (Self)", deduction80Dself, setDeduction80Dself],
+                ["80D (Dependent)", deduction80Ddependent, setDeduction80Ddependent],
+                ["80G (Donations)", donations80G, setDonations80G],
+                ["80GGC (Pol. Party)", donations80GGC, setDonations80GGC],
+                ["80TTA (Savings Int)", savingsInterest80TTA, setSavingsInterest80TTA],
+                ["24b (Home Loan Int)", homeLoanInterest, setHomeLoanInterest],
+                ["Other Deductions", otherDeductions, setOtherDeductions],
+              ].map(([label, value, setter], index) => (
+                <div key={index} className="relative group/input">
+                  <label className="block text-sm font-medium text-gray-300 mb-1 ml-1 group-focus-within/input:text-blue-400 transition-colors">
+                    {label} <span className="text-xs text-gray-500">(₹)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={handleInputChange(setter)}
+                    className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono tracking-wide"
+                    placeholder="0"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleCalculate}
+              className="w-full mt-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all"
+            >
+              Calculate Tax
+            </motion.button>
+
+            {oldRegimeTax !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6"
+              >
+                {/* Standard Results */}
+                <div className="bg-slate-900/60 p-6 rounded-xl border border-slate-700">
+                  <h3 className="text-lg font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                    📊 Your Calculation
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">Old Regime</span>
+                      <span className="text-2xl font-bold text-red-400">
+                        ₹{oldRegimeTax}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">New Regime</span>
+                      <span className="text-2xl font-bold text-green-400">
+                        ₹{newRegimeTax}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Expert Results */}
+                <div className="bg-slate-900/60 p-6 rounded-xl border border-yellow-500/30 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 px-3 py-1 bg-yellow-500/20 text-yellow-500 text-xs font-bold rounded-bl-lg">
+                    EXPERT OPTIMIZED
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                    💡 Potential Savings
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-400">Old Regime (Opt)</span>
+                      <span className="text-2xl font-bold text-blue-400">
+                        ₹{expertOldRegimeTax}
+                      </span>
+                    </div>
+                    {/* <div className="flex justify-between items-center">
+                      <span className="text-gray-400">New Regime (Opt)</span>
+                      <span className="text-xl font-bold text-gray-300">₹{expertNewRegimeTax}</span>
+                    </div> */}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Sidebar Section */}
+          <div className="w-full xl:w-1/3 flex flex-col gap-6">
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl">
+              <h2 className="text-xl font-bold text-center mb-6 text-blue-200">
+                📋 Tax Slabs Reference
+              </h2>
+
+              <div className="mb-8">
+                <h3 className="text-sm font-semibold text-purple-300 mb-3 uppercase tracking-wider">
+                  Old Regime
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-300">
+                  {TAX_SLABS_OLD.map((slab, index) => {
+                    const previousLimit = index === 0 ? 0 : TAX_SLABS_OLD[index - 1].limit;
+                    return (
+                      <li
+                        key={index}
+                        className="flex justify-between py-2 border-b border-gray-700/50 last:border-0"
+                      >
+                        <span>
+                          ₹{previousLimit.toLocaleString("en-IN") + 1} -{" "}
+                          {slab.limit === Infinity
+                            ? "Above"
+                            : `₹${slab.limit.toLocaleString("en-IN")}`}
+                        </span>
+                        <span className="font-mono text-blue-400">{slab.rate}%</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-sm font-semibold text-green-300 mb-3 uppercase tracking-wider">
+                  New Regime <br />
+                  <span className="normal-case opacity-70 text-xs">(AY 2026-27+)</span>
+                </h3>
+                <ul className="space-y-2 text-sm text-gray-300">
+                  {TAX_SLABS_NEW.map((slab, index) => {
+                    const previousLimit = index === 0 ? 0 : TAX_SLABS_NEW[index - 1].limit;
+                    return (
+                      <li
+                        key={index}
+                        className="flex justify-between py-2 border-b border-gray-700/50 last:border-0"
+                      >
+                        <span>
+                          ₹{previousLimit.toLocaleString("en-IN") + 1} -{" "}
+                          {slab.limit === Infinity
+                            ? "Above"
+                            : `₹${slab.limit.toLocaleString("en-IN")}`}
+                        </span>
+                        <span className="font-mono text-green-400">{slab.rate}%</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 };
 
 export default IncomeTaxCalculator;

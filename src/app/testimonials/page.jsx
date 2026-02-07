@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Tabs, TabsContent, TabsTrigger, TabsList } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
+import { Star, User } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // ITR Testimonials Data
 const initialItrTestimonials = [
@@ -27,7 +29,7 @@ const initialItrTestimonials = [
     rating: "★★★★★",
     review: "Excellent service! They guided me through every step of my tax filing, ensuring everything was accurate and compliant. Will definitely return next year!.Highly recommended for a reliable tax consultant!”.",
   },
-    {
+  {
     name: "SURYANANDAN JAISHWAL",
     profession: "Aakash Institute",
     photo: "/assets/testimonials/suryanandan.jpg",
@@ -47,14 +49,14 @@ const initialItrTestimonials = [
     photo: "/assets/testimonials/rohitb.jpeg",
     rating: "★★★★★",
     review: "Amazing customer service! They patiently explained everything and ensured I got the best returns and no any complaint till now. Thank you!",
-  },  
+  },
   {
     name: "VIKRAM KUMAR SINGH ",
     profession: "PW Institute",
     photo: "/assets/testimonials/vikram.jpg",
     rating: "★★★★★",
     review: "I’ve been using their services for years—always accurate, efficient, and trustworthy!",
-  },{
+  }, {
     name: "VIPIN KUMAR SINGH ",
     profession: "PW Institute",
     photo: "/assets/testimonials/vipin.jpg",
@@ -156,7 +158,7 @@ const initialItrTestimonials = [
     photo: "/assets/testimonials/naga.jpg",
     rating: "★★★★★",
     review: "LV TAX CONSULTANCY exceeded my expectations. Their expert advice helped me save more than I expected!!!",
-  }, 
+  },
 ];
 
 // GST Testimonials Data
@@ -186,11 +188,19 @@ const initialGstTestimonials = [
 
 // Function to render stars
 const renderStars = (rating) => {
-  return rating.split("").map((star, index) => (
-    <span key={index} className="text-yellow-400">
-      {star}
-    </span>
-  ));
+  const count = rating.length;
+  return (
+    <div className="flex gap-1 text-yellow-400">
+      {[...Array(5)].map((_, i) => (
+        <Star
+          key={i}
+          size={16}
+          fill={i < count ? "currentColor" : "none"}
+          className={i < count ? "text-yellow-400" : "text-gray-600"}
+        />
+      ))}
+    </div>
+  );
 };
 
 const Testimonials = () => {
@@ -228,129 +238,222 @@ const Testimonials = () => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.4, duration: 0.4, ease: "easeIn" },
-      }}
-      className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
-    >
-      <div className="container mx-auto">
-        <Tabs defaultValue="itr-testimonials" className="flex flex-col xl:flex-row gap-[60px]">
-          {/* Tabs List */}
-          <TabsList className="flex flex-col w-full max-w-[380px] mx-auto xl:mx-0 gap-6">
-            <TabsTrigger value="itr-testimonials">ITR Testimonials</TabsTrigger>
-            <TabsTrigger value="gst-testimonials">GST Testimonials</TabsTrigger>
-          </TabsList>
-
-          {/* ITR Testimonials */}
-          <TabsContent value="itr-testimonials">
-            <h3 className="text-4xl font-bold text-center mb-6">What Our Clients Say - ITR</h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {itrTestimonials.map((testimonial, index) => (
-                <li key={index} className="bg-[#232329] p-6 rounded-xl shadow-md">
-                  <div className="flex justify-center mb-4">
-                    <img
-                      src={testimonial.photo}
-                      alt={testimonial.name}
-                      className="w-20 h-20 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold">{testimonial.name}</h4>
-                    <p className="text-gray-400">{testimonial.profession}</p>
-                  </div>
-                  <p className="mt-2 italic">"{testimonial.review}"</p>
-                  <div className="flex gap-1 justify-center mt-2">{renderStars(testimonial.rating)}</div>
-                </li>
-              ))}
-            </ul>
-          </TabsContent>
-
-          {/* GST Testimonials */}
-          <TabsContent value="gst-testimonials">
-            <h3 className="text-4xl font-bold text-center mb-6">What Our Clients Say - GST</h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {gstTestimonials.map((testimonial, index) => (
-                <li key={index} className="bg-[#232329] p-6 rounded-xl shadow-md">
-                  <div className="flex justify-center mb-4">
-                    <img
-                      src={testimonial.photo}
-                      alt={testimonial.name}
-                      className="w-20 h-20 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="text-center">
-                    <h4 className="text-lg font-semibold">{testimonial.name}</h4>
-                    <p className="text-gray-400">{testimonial.profession}</p>
-                  </div>
-                  <p className="mt-2 italic">"{testimonial.review}"</p>
-                  <div className="flex gap-1 justify-center mt-2">{renderStars(testimonial.rating)}</div>
-                </li>
-              ))}
-            </ul>
-          </TabsContent>
-        </Tabs>
-
-        {/* Testimonial Submission Form */}
-        <div className="mt-12 bg-[#232329] p-6 rounded-xl shadow-md">
-          <h3 className="text-3xl font-bold text-center mb-4">Share Your Experience</h3>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleInputChange}
-              className="p-3 rounded-md bg-gray-800 text-white focus:outline-none"
-              required
-            />
-            <input
-              type="text"
-              name="profession"
-              placeholder="Your Profession"
-              value={formData.profession}
-              onChange={handleInputChange}
-              className="p-3 rounded-md bg-gray-800 text-white focus:outline-none"
-              required
-            />
-            <textarea
-              name="review"
-              placeholder="Your Review"
-              value={formData.review}
-              onChange={handleInputChange}
-              className="p-3 rounded-md bg-gray-800 text-white focus:outline-none h-24"
-              required
-            />
-            <select
-              name="rating"
-              value={formData.rating}
-              onChange={handleInputChange}
-              className="p-3 rounded-md bg-gray-800 text-white focus:outline-none"
-            >
-              <option value="★★★★★">★★★★★</option>
-              <option value="★★★★">★★★★</option>
-              <option value="★★★">★★★</option>
-              <option value="★★">★★</option>
-              <option value="★">★</option>
-            </select>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              className="p-3 rounded-md bg-gray-800 text-white focus:outline-none"
-            >
-              <option value="itr">ITR</option>
-              <option value="gst">GST</option>
-            </select>
-            <button type="submit" className="p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-              Submit Testimonial
-            </button>
-          </form>
-        </div>
+    <section className="min-h-screen relative bg-slate-950 text-white py-12 xl:py-24 overflow-hidden font-sans">
+      {/* Background Gradients */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-purple-900/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-indigo-900/20 rounded-full blur-[120px]" />
       </div>
-    </motion.div>
+
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Tabs defaultValue="itr-testimonials" className="flex flex-col gap-12">
+            {/* Tabs List */}
+            <div className="flex justify-center">
+              <TabsList className="bg-white/5 backdrop-blur-md border border-white/10 p-1 rounded-full inline-flex">
+                <TabsTrigger
+                  value="itr-testimonials"
+                  className="px-8 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
+                >
+                  ITR Testimonials
+                </TabsTrigger>
+                <TabsTrigger
+                  value="gst-testimonials"
+                  className="px-8 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
+                >
+                  GST Testimonials
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            {/* ITR Testimonials */}
+            <TabsContent value="itr-testimonials" className="w-full">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300 mb-4">
+                  Client Success Stories
+                </h3>
+                <p className="text-gray-400">Trusted by professionals across industries for ITR filing.</p>
+              </div>
+
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {itrTestimonials.map((testimonial, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl hover:shadow-2xl hover:border-blue-500/30 transition-all duration-300 group"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-blue-500/20 group-hover:border-blue-500/50 transition-colors">
+                        <Avatar className="w-full h-full">
+                          <AvatarImage src={testimonial.photo} alt={testimonial.name} className="object-cover" />
+                          <AvatarFallback className="flex items-center justify-center w-full h-full bg-slate-800">
+                            <img src="/assets/logo.png" alt="LV" className="w-full h-full object-contain p-2 opacity-80" />
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-gray-400">{testimonial.profession}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">{renderStars(testimonial.rating)}</div>
+
+                    <p className="text-gray-300 italic leading-relaxed text-sm">
+                      "{testimonial.review}"
+                    </p>
+                  </motion.li>
+                ))}
+              </ul>
+            </TabsContent>
+
+            {/* GST Testimonials */}
+            <TabsContent value="gst-testimonials" className="w-full">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300 mb-4">
+                  Business Success Stories
+                </h3>
+                <p className="text-gray-400">Helping businesses grow with compliant GST solutions.</p>
+              </div>
+
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {gstTestimonials.map((testimonial, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl hover:shadow-2xl hover:border-purple-500/30 transition-all duration-300 group"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-purple-500/20 group-hover:border-purple-500/50 transition-colors">
+                        <Avatar className="w-full h-full">
+                          <AvatarImage src={testimonial.photo} alt={testimonial.name} className="object-cover" />
+                          <AvatarFallback className="flex items-center justify-center w-full h-full bg-slate-800">
+                            <img src="/assets/logo.png" alt="LV" className="w-full h-full object-contain p-2 opacity-80" />
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-gray-400">{testimonial.profession}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">{renderStars(testimonial.rating)}</div>
+
+                    <p className="text-gray-300 italic leading-relaxed text-sm">
+                      "{testimonial.review}"
+                    </p>
+                  </motion.li>
+                ))}
+              </ul>
+            </TabsContent>
+          </Tabs>
+
+          {/* Testimonial Submission Form */}
+          <div className="mt-20 max-w-2xl mx-auto">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none" />
+
+              <h3 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
+                Share Your Experience
+              </h3>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative z-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400 ml-1">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-all"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400 ml-1">Profession</label>
+                    <input
+                      type="text"
+                      name="profession"
+                      placeholder="Your Profession"
+                      value={formData.profession}
+                      onChange={handleInputChange}
+                      className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-all"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm text-gray-400 ml-1">Review</label>
+                  <textarea
+                    name="review"
+                    placeholder="Write your review here..."
+                    value={formData.review}
+                    onChange={handleInputChange}
+                    className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 transition-all min-h-[120px]"
+                    required
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400 ml-1">Rating</label>
+                    <select
+                      name="rating"
+                      value={formData.rating}
+                      onChange={handleInputChange}
+                      className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white focus:outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="★★★★★">★★★★★ (Excellent)</option>
+                      <option value="★★★★">★★★★ (Good)</option>
+                      <option value="★★★">★★★ (Average)</option>
+                      <option value="★★">★★ (Fair)</option>
+                      <option value="★">★ (Poor)</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm text-gray-400 ml-1">Category</label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleInputChange}
+                      className="w-full p-3 rounded-xl bg-slate-900/50 border border-slate-700 text-white focus:outline-none focus:border-blue-500 transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="itr">ITR Services</option>
+                      <option value="gst">GST Services</option>
+                    </select>
+                  </div>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="mt-4 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+                >
+                  Submit Testimonial
+                </motion.button>
+              </form>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 };
 

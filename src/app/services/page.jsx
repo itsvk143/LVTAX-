@@ -9,25 +9,25 @@ const services = [
     num: "01",
     title: "TAX PLANNING",
     description: "",
-    href: "/",
+    href: "/services/tax-planning",
   },
   {
     num: "02",
     title: "INCOME TAX RETURN",
     description: "",
-    href: "/",
+    href: "/services/income-tax-return",
   },
   {
     num: "03",
     title: "GST REGISTRATION",
     description: "",
-    href: "/",
+    href: "/services/gst-registration",
   },
   {
     num: "04",
     title: "GST RETURN",
     description: "",
-    href: "/",
+    href: "/services/gst-return",
   },
 ];
 
@@ -41,7 +41,7 @@ const Services = () => {
             opacity: 1,
             transition: { delay: 2.4, duration: 0.4, ease: "easeIn" },
           }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-[60px]"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[60px]"
         >
           {services.map((service, index) => {
             return (
@@ -50,7 +50,7 @@ const Services = () => {
                 className="flex-1 flex flex-col justify-center gap-6 group"
               >
                 <div className="w-full  items-center">
-                  <div className="text-5xl  flex justify-between font-extrabold text-outline text-transparent group-hover:text-outline-hover transition-all duration-500">
+                  <div className="text-4xl md:text-5xl flex justify-between font-extrabold text-outline text-transparent group-hover:text-outline-hover transition-all duration-500">
                     {service.num}
                     <Link
                       href={service.href}
@@ -59,7 +59,7 @@ const Services = () => {
                       <BsArrowDownRight className="text-primary text-3xl" />
                     </Link>
                   </div>
-                  <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
+                  <h2 className="text-3xl md:text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
                     {service.title}
                   </h2>
                   <p className="text-white/60">{service.description}</p>

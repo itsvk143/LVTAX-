@@ -1,4 +1,4 @@
-// File: /Users/laxmikumari/Desktop/PORTFOLIO/Portfolio/src/app/contact/page.jsx
+// File: /Users/laxmikumari/Desktop/web/published/PORTFOLIO/Portfolio/src/app/contact/page.jsx
 import * as entry from '../../../../src/app/contact/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
