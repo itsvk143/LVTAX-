@@ -4,17 +4,16 @@ import CountUp from "react-countup";
 
 const stats = [
   {
-    num: 5,
-    text: "Years of experience",
+    num: 10,
+    text: "Combined Years of Experience",
   },
-  // {
-  //   num: 8,
-  //   text: "These",
-  // },
   {
-    num: 850,
-    text: " Satisfied Client ",
-
+    num: 1200,
+    text: "Satisfied Clients Across India",
+  },
+  {
+    num: 2500,
+    text: "Successful Filings Completed",
   },
 ];
 

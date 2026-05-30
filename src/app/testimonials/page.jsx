@@ -186,6 +186,31 @@ const initialGstTestimonials = [
   },
 ];
 
+// Company Secretary (CS) & Corporate Testimonials Data
+const initialCsTestimonials = [
+  {
+    name: "KUNAL SHAH",
+    profession: "Fintech Startup Founder",
+    photo: "/assets/testimonials/saya.jpeg",
+    rating: "★★★★★",
+    review: "CS Jyoti incorporated our Private Limited company in record time! She handled all MCA Spice+ paperwork, DSC, and DIN KYC effortlessly.",
+  },
+  {
+    name: "REEMA SEN",
+    profession: "Director, EduTech LLP",
+    photo: "/assets/testimonials/paulimi.png",
+    rating: "★★★★★",
+    review: "Annual compliance filings (LLP Form 8 & 11) used to be a hassle. Working with CS Jyoti made everything seamless. Her advisory on governance is highly professional.",
+  },
+  {
+    name: "RAMESH AGGARWAL",
+    profession: "MD, Manufacturing Co.",
+    photo: "/assets/testimonials/client3.jpg",
+    rating: "★★★★★",
+    review: "Jyoti has been handling our ROC filings, AGM minutes, and statutory registers since 2 years. Absolutely punctual and highly competent in Companies Act requirements.",
+  },
+];
+
 // Function to render stars
 const renderStars = (rating) => {
   const count = rating.length;
@@ -207,6 +232,7 @@ const Testimonials = () => {
   // State for storing testimonials
   const [itrTestimonials, setItrTestimonials] = useState(initialItrTestimonials);
   const [gstTestimonials, setGstTestimonials] = useState(initialGstTestimonials);
+  const [csTestimonials, setCsTestimonials] = useState(initialCsTestimonials);
 
   // State for form inputs
   const [formData, setFormData] = useState({
@@ -229,8 +255,10 @@ const Testimonials = () => {
 
     if (formData.category === "itr") {
       setItrTestimonials([...itrTestimonials, newTestimonial]);
-    } else {
+    } else if (formData.category === "gst") {
       setGstTestimonials([...gstTestimonials, newTestimonial]);
+    } else {
+      setCsTestimonials([...csTestimonials, newTestimonial]);
     }
 
     // Clear form after submission
@@ -254,18 +282,24 @@ const Testimonials = () => {
           <Tabs defaultValue="itr-testimonials" className="flex flex-col gap-12">
             {/* Tabs List */}
             <div className="flex justify-center">
-              <TabsList className="bg-white/5 backdrop-blur-md border border-white/10 p-1 rounded-full inline-flex">
+              <TabsList className="bg-white/5 backdrop-blur-md border border-white/10 p-1 rounded-full inline-flex flex-wrap justify-center gap-2">
                 <TabsTrigger
                   value="itr-testimonials"
-                  className="px-8 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
+                  className="px-6 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
                 >
                   ITR Testimonials
                 </TabsTrigger>
                 <TabsTrigger
                   value="gst-testimonials"
-                  className="px-8 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
+                  className="px-6 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
                 >
                   GST Testimonials
+                </TabsTrigger>
+                <TabsTrigger
+                  value="cs-testimonials"
+                  className="px-6 py-3 rounded-full data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-purple-600 data-[state=active]:text-white transition-all duration-300"
+                >
+                  CS & Compliance
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -359,6 +393,51 @@ const Testimonials = () => {
                 ))}
               </ul>
             </TabsContent>
+
+            {/* CS Testimonials */}
+            <TabsContent value="cs-testimonials" className="w-full">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300 mb-4">
+                  Corporate Success Stories
+                </h3>
+                <p className="text-gray-400">Guiding companies with solid compliance and corporate secretary support.</p>
+              </div>
+
+              <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {csTestimonials.map((testimonial, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-xl hover:shadow-2xl hover:border-emerald-500/30 transition-all duration-300 group"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-emerald-500/20 group-hover:border-emerald-500/50 transition-colors">
+                        <Avatar className="w-full h-full">
+                          <AvatarImage src={testimonial.photo} alt={testimonial.name} className="object-cover" />
+                          <AvatarFallback className="flex items-center justify-center w-full h-full bg-slate-800">
+                            <img src="/assets/logo.png" alt="LV" className="w-full h-full object-contain p-2 opacity-80" />
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                          {testimonial.name}
+                        </h4>
+                        <p className="text-sm text-gray-400">{testimonial.profession}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">{renderStars(testimonial.rating)}</div>
+
+                    <p className="text-gray-300 italic leading-relaxed text-sm">
+                      "{testimonial.review}"
+                    </p>
+                  </motion.li>
+                ))}
+              </ul>
+            </TabsContent>
           </Tabs>
 
           {/* Testimonial Submission Form */}
@@ -401,7 +480,7 @@ const Testimonials = () => {
                 <div className="space-y-2">
                   <label className="text-sm text-gray-400 ml-1">Review</label>
                   <textarea
-                    name="review"
+                     name="review"
                     placeholder="Write your review here..."
                     value={formData.review}
                     onChange={handleInputChange}
@@ -436,6 +515,7 @@ const Testimonials = () => {
                     >
                       <option value="itr">ITR Services</option>
                       <option value="gst">GST Services</option>
+                      <option value="cs">CS & Compliance Services</option>
                     </select>
                   </div>
                 </div>

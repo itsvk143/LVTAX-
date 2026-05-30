@@ -3,37 +3,39 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const Photo = () => {
+const Photo = ({ src = "/assets/photo.png", strokeColor = "#00ff99", objectPosition = "center" }) => {
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
           transition: { delay: 1, duration: 0.1, ease: "easeIn" },
         }}
+        className="w-full h-full relative flex items-center justify-center"
       >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{
             opacity: 1,
-            transition: { delay: 2.4, duration: 0.1, ease: "easeInOut" },
+            transition: { delay: 1.5, duration: 0.1, ease: "easeInOut" },
           }}
-          className="w-[290px] h-[290px] xl:w-[498px] xl:h-[450px] mix-blend-lighten absolute"
+          className="w-[94%] h-[94%] absolute flex justify-center items-center overflow-hidden rounded-full mix-blend-lighten"
         >
           <Image
-            src="/assets/photo.png"
+            src={src}
             priority
             quality={100}
             fill
-            alt="Avataar"
-            className="object-contain"
+            alt="Avatar"
+            className="object-cover"
+            style={{ objectPosition }}
           />
         </motion.div>
 
         {/* Animated SVG with 3 circles */}
         <motion.svg
-          className="w-[300px] xl:w-[506px] h-[300px] xl:h-[506px]"
+          className="w-full h-full"
           fill="transparent"
           viewBox="0 0 506 506"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +45,7 @@ const Photo = () => {
             cx="253"
             cy="253"
             r="245"
-            stroke="#00ff99"
+            stroke={strokeColor}
             strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -64,7 +66,7 @@ const Photo = () => {
             cx="253"
             cy="253"
             r="240"
-            stroke="#00ff99"
+            stroke={strokeColor}
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -85,7 +87,7 @@ const Photo = () => {
             cx="253"
             cy="253"
             r="235"
-            stroke="#00ff99"
+            stroke={strokeColor}
             strokeWidth="1"
             strokeLinecap="round"
             strokeLinejoin="round"

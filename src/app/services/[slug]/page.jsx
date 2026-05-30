@@ -30,6 +30,26 @@ const ServiceDetails = () => {
             description: "Monthly and quarterly GST return filing services.",
             offers: ["Compliance check", "Reconciliation support"],
         },
+        "company-incorporation": {
+            title: "Company & LLP Incorporation",
+            description: "Complete structural formation. We handle name approval (RUN), Spice+ incorporation filing, PAN/TAN application, and drafting of customized Memorandum of Association (MOA) and Articles of Association (AOA) for Private, Public, One Person (OPC), Section 8 companies, and LLPs.",
+            offers: ["End-to-end setup in 7-10 working days", "Digital Signatures (DSC) & Director Identificaton Numbers (DIN) included", "Free bank account opening assistance"],
+        },
+        "annual-compliance": {
+            title: "ROC & MCA Annual Compliance",
+            description: "Protect your company from state penalties. Complete annual filing services covering AOC-4 (financial statements), MGT-7 (annual return), ADT-1 (auditor appointment), and LLP Form 8 & Form 11, ensuring timely submission to the Ministry of Corporate Affairs.",
+            offers: ["Pre-compliance audit check", "Advance notification of upcoming filing deadlines", "Legally vetted document filing"],
+        },
+        "corporate-governance": {
+            title: "Corporate Governance & Advisory",
+            description: "Ensure complete boardroom legality. We offer expert guidance on conducting Board Meetings, Annual General Meetings (AGM), and Extra-Ordinary General Meetings (EGM), drafting meeting agendas, professional resolutions, and maintaining statutory registers under the Companies Act, 2013.",
+            offers: ["Professional resolution drafting", "Maintenance of physical/digital statutory registers", "Governance review audits"],
+        },
+        "director-compliances": {
+            title: "Director KYC & Allied Services",
+            description: "Manage credentials and legal structural shifts with ease. We process DIN KYC, director appointments/resignations, resolution of director disqualification issues, MSME registrations, name/object modifications in MOA/AOA, and legal striking-off/closures of companies and LLPs.",
+            offers: ["Fast-track DIN KYC & activation", "Allied MSME registrations & benefit compliance", "Smooth structure modification filing"],
+        },
     };
 
     const service = serviceData[slug] || {

@@ -1,13 +1,12 @@
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Variable, Weight } from "lucide-react";
 import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  Weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
   variable: "---font-jetbrainsMono",
 });
 

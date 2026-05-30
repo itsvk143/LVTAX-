@@ -50,7 +50,19 @@ const Contact = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "phone") {
+      // Allow only digits and standard leading '+'
+      let cleaned = value.replace(/[^0-9+]/g, "");
+      if (cleaned.startsWith("+")) {
+        cleaned = "+" + cleaned.slice(1).replace(/[^0-9]/g, "").slice(0, 12);
+      } else {
+        cleaned = cleaned.replace(/[^0-9]/g, "").slice(0, 10);
+      }
+      setFormData({ ...formData, phone: cleaned });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSelectChange = (value) => {
@@ -60,20 +72,17 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzbfOVR7b1evcCpxNfeKwfKtYksgpWtKFuhwCNo6c8adCsnotQGdORtwHVXrY_14ybi-g/exec",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-          mode: "no-cors",
-        }
-      );
+      const url = "https://script.google.com/macros/s/AKfycbzpvzXUAEiiQRO0YXQ5nJcqw7_CyibZeyYFcpZACz5_fZ1lGmnyAyDNvuzOPFm_KN7wsw/exec";
 
-      // Since mode is no-cors, we can't check response.ok or read the body
-      // We assume success if no network error occurs
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain",
+        },
+        body: JSON.stringify(formData),
+        mode: "no-cors",
+      });
+
       alert("Message sent successfully! We will contact you shortly.");
       setFormData({
         firstName: "",
@@ -142,16 +151,18 @@ const Contact = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Email Address"
-                  required
+                  placeholder="Email Address (Optional)"
                   className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all rounded-lg h-12"
                 />
                 <Input
                   name="phone"
+                  type="tel"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Phone Number"
                   required
+                  pattern="^\+?[0-9]{10,12}$"
+                  title="Please enter a standard 10 to 12 digit phone number (e.g. 8457876843 or +918457876843)"
                   className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-teal-400 focus:ring-1 focus:ring-teal-400 transition-all rounded-lg h-12"
                 />
               </div>
@@ -166,9 +177,13 @@ const Contact = () => {
                 <SelectContent className="bg-slate-900 border-white/10 text-gray-200">
                   <SelectGroup>
                     <SelectLabel className="text-gray-500">Services</SelectLabel>
-                    <SelectItem value="Tax Planning" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Tax Planning</SelectItem>
-                    <SelectItem value="Income Tax Return" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Income Tax Return</SelectItem>
-                    <SelectItem value="GST Return" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">GST Return</SelectItem>
+                    <SelectItem value="Tax Planning" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Tax Planning & Advisory</SelectItem>
+                    <SelectItem value="Income Tax Return" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Income Tax Return Filing</SelectItem>
+                    <SelectItem value="GST Services" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">GST Return & Registration</SelectItem>
+                    <SelectItem value="Company Incorporation" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Company & LLP Incorporation</SelectItem>
+                    <SelectItem value="Annual compliance Filings" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">ROC & MCA Annual Compliance</SelectItem>
+                    <SelectItem value="Corporate Governance Advisory" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Corporate Governance & Minutes</SelectItem>
+                    <SelectItem value="Director Allied Services" className="focus:bg-white/10 focus:text-teal-400 cursor-pointer">Director KYC & Allied Services</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

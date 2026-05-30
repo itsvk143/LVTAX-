@@ -8,26 +8,50 @@ const services = [
   {
     num: "01",
     title: "TAX PLANNING",
-    description: "",
+    description: "Strategic tax planning & financial advisory to legally optimize tax liability and maximize savings.",
     href: "/services/tax-planning",
   },
   {
     num: "02",
     title: "INCOME TAX RETURN",
-    description: "",
+    description: "Error-free filing of Income Tax Returns (ITR) for individuals, partnerships, HUFs, and corporations.",
     href: "/services/income-tax-return",
   },
   {
     num: "03",
     title: "GST REGISTRATION",
-    description: "",
+    description: "Seamless and prompt GST registration process with complete documentation support for new businesses.",
     href: "/services/gst-registration",
   },
   {
     num: "04",
-    title: "GST RETURN",
-    description: "",
+    title: "GST RETURN FILING",
+    description: "Regular filing of monthly & quarterly GST returns (GSTR-1, GSTR-3B) with accurate reconciliation.",
     href: "/services/gst-return",
+  },
+  {
+    num: "05",
+    title: "COMPANY INCORPORATION",
+    description: "End-to-end formation & incorporation services for Private, Public, One Person (OPC), Section-8 Companies, and LLPs.",
+    href: "/services/company-incorporation",
+  },
+  {
+    num: "06",
+    title: "ANNUAL MCA & ROC FILINGS",
+    description: "Hassle-free annual compliance filing including AOC-4, MGT-7, ADT-1, and LLP Form 8 & Form 11 to keep your firm compliant.",
+    href: "/services/annual-compliance",
+  },
+  {
+    num: "07",
+    title: "CORPORATE GOVERNANCE",
+    description: "Professional governance advisory, drafting agendas, minutes of Board/AGM/EGM meetings, and maintaining statutory registers.",
+    href: "/services/corporate-governance",
+  },
+  {
+    num: "08",
+    title: "DIRECTOR & ALLIED COMPLIANCE",
+    description: "Director appointments, resignations, disqualifications solutions, DIN KYC, MSME registrations, and MOA & AOA alterations.",
+    href: "/services/director-compliances",
   },
 ];
 
