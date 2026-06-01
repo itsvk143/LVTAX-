@@ -165,7 +165,7 @@ const IncomeTaxCalculator = () => {
     const taxableIncomeOld = Math.max(ctcValue - totalDeductionsOld, 0);
     const taxOld = calculateOldRegimeTax(taxableIncomeOld);
 
-    const taxableIncomeNew = Math.max(ctcValue - standardDeductionNew, 0);
+    const taxableIncomeNew = Math.max(ctcValue - standardDeductionNew - deduction80CCD2Value, 0);
     const taxNew = calculateNewRegimeTax(taxableIncomeNew);
 
     setOldRegimeTax(Math.round(taxOld).toLocaleString("en-IN"));
@@ -196,7 +196,7 @@ const IncomeTaxCalculator = () => {
     const expertTaxableIncomeOld = Math.max(ctcValue - expertDeductionsOld, 0);
     const expertTaxOld = calculateOldRegimeTax(expertTaxableIncomeOld);
 
-    const expertTaxableIncomeNew = Math.max(ctcValue - standardDeductionNew, 0);
+    const expertTaxableIncomeNew = Math.max(ctcValue - standardDeductionNew - deduction80CCD2Value, 0);
     const expertTaxNew = calculateNewRegimeTax(expertTaxableIncomeNew);
 
     setExpertOldRegimeTax(Math.round(expertTaxOld).toLocaleString("en-IN"));
