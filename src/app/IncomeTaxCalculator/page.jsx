@@ -60,12 +60,13 @@ const calculateNewRegimeTax = (taxableIncome) => {
   let taxAfterRebate = initialTax;
 
   // Section 87A Rebate and Marginal Relief under New Regime (AY 2026-27)
-  // Taxable income up to ₹12,75,000 is completely tax-free (rebate reduces tax to ₹0)
-  if (taxableIncome <= 1275000) {
+  // Net Taxable income up to ₹12,00,000 is completely tax-free (rebate reduces tax to ₹0)
+  // With ₹75,000 standard deduction, this makes a Gross CTC up to ₹12,75,000 tax-free.
+  if (taxableIncome <= 1200000) {
     taxAfterRebate = 0;
   } else {
-    // Check for Marginal Relief starting above ₹12,75,000
-    const excessIncome = taxableIncome - 1275000;
+    // Check for Marginal Relief starting above ₹12,00,000 Net Taxable Income
+    const excessIncome = taxableIncome - 1200000;
     if (initialTax > excessIncome) {
       taxAfterRebate = excessIncome;
     }
