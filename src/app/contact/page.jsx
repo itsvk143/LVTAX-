@@ -72,7 +72,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "https://script.google.com/macros/s/AKfycbzpvzXUAEiiQRO0YXQ5nJcqw7_CyibZeyYFcpZACz5_fZ1lGmnyAyDNvuzOPFm_KN7wsw/exec";
+      const url = "https://script.google.com/macros/s/AKfycbxgHdcxZt2rJnsc2UjfSRwWM10VH-ZaGehvhTOgBIhOiTMMmEudyFXcggMIIqWy_mai/exec";
 
       await fetch(url, {
         method: "POST",
