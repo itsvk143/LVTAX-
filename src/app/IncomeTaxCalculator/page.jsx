@@ -93,10 +93,17 @@ const IncomeTaxCalculator = () => {
   const [homeLoanInterest, setHomeLoanInterest] = useState("");
   const [otherDeductions, setOtherDeductions] = useState("");
 
+  // ITR Form Advisor states
+  const [isDirector, setIsDirector] = useState(false);
+  const [hasUnlistedShares, setHasUnlistedShares] = useState(false);
+  const [hasForeignIncome, setHasForeignIncome] = useState(false);
+
   const [oldRegimeTax, setOldRegimeTax] = useState(null);
   const [newRegimeTax, setNewRegimeTax] = useState(null);
   const [expertOldRegimeTax, setExpertOldRegimeTax] = useState(null);
   const [expertNewRegimeTax, setExpertNewRegimeTax] = useState(null);
+  const [recommendedITR, setRecommendedITR] = useState(null);
+  const [itrReasons, setItrReasons] = useState([]);
 
   const handleInputChange = (setter) => (e) => {
     let value = e.target.value.replace(/,/g, "");
@@ -188,6 +195,30 @@ const IncomeTaxCalculator = () => {
 
     setExpertOldRegimeTax(Math.round(expertTaxOld).toLocaleString("en-IN"));
     setExpertNewRegimeTax(Math.round(expertTaxNew).toLocaleString("en-IN"));
+
+    // Decide which ITR Form is applicable based on Income Tax portal guidelines
+    let form = "ITR-1 (Sahaj)";
+    let reasons = [];
+
+    if (ctcValue > 5000000) {
+      form = "ITR-2";
+      reasons.push("Total gross income exceeds ₹50 Lakhs.");
+    }
+    if (isDirector) {
+      form = "ITR-2";
+      reasons.push("You are a Director in a company.");
+    }
+    if (hasUnlistedShares) {
+      form = "ITR-2";
+      reasons.push("You held unlisted equity shares.");
+    }
+    if (hasForeignIncome) {
+      form = "ITR-2";
+      reasons.push("You have foreign assets or foreign income.");
+    }
+
+    setRecommendedITR(form);
+    setItrReasons(reasons);
   };
 
   return (
@@ -247,11 +278,47 @@ const IncomeTaxCalculator = () => {
               ))}
             </div>
 
+            {/* ITR Form Advisor Toggles */}
+            <div className="mt-8 p-5 bg-slate-900/40 border border-slate-800 rounded-xl space-y-4">
+              <h3 className="text-sm font-semibold text-blue-400 uppercase tracking-wider mb-2">
+                📋 Optional ITR Form Advisor Details
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <label className="flex items-center gap-3 cursor-pointer text-xs text-gray-300 hover:text-white select-none">
+                  <input
+                    type="checkbox"
+                    checked={isDirector}
+                    onChange={(e) => setIsDirector(e.target.checked)}
+                    className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900"
+                  />
+                  <span>Director in Company</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer text-xs text-gray-300 hover:text-white select-none">
+                  <input
+                    type="checkbox"
+                    checked={hasUnlistedShares}
+                    onChange={(e) => setHasUnlistedShares(e.target.checked)}
+                    className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900"
+                  />
+                  <span>Held Unlisted Shares</span>
+                </label>
+                <label className="flex items-center gap-3 cursor-pointer text-xs text-gray-300 hover:text-white select-none">
+                  <input
+                    type="checkbox"
+                    checked={hasForeignIncome}
+                    onChange={(e) => setHasForeignIncome(e.target.checked)}
+                    className="w-4 h-4 rounded border-slate-700 bg-slate-800 text-blue-500 focus:ring-blue-500 focus:ring-offset-slate-900"
+                  />
+                  <span>Foreign Income/Assets</span>
+                </label>
+              </div>
+            </div>
+
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleCalculate}
-              className="w-full mt-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all"
+              className="w-full mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all"
             >
               Calculate Tax
             </motion.button>
@@ -304,6 +371,41 @@ const IncomeTaxCalculator = () => {
                     </div> */}
                   </div>
                 </div>
+
+                {/* Recommended ITR Form Advisor Card */}
+                {recommendedITR && (
+                  <div className="bg-slate-900/60 p-6 rounded-xl border border-indigo-500/30 col-span-1 md:col-span-2 relative overflow-hidden group/itr">
+                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover/itr:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <h3 className="text-lg font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                      📄 Recommended Return Form
+                    </h3>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                        <span className="text-3xl font-extrabold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent font-mono tracking-wide">
+                          {recommendedITR}
+                        </span>
+                        <p className="text-xs text-gray-400 mt-2">
+                          Based on guidelines from Section 139(1) of the Income Tax Act for AY 2026-27.
+                        </p>
+                      </div>
+                      {itrReasons.length > 0 ? (
+                        <div className="text-xs text-amber-200/90 bg-amber-500/10 border border-amber-500/25 p-3 rounded-lg max-w-sm">
+                          <strong className="block text-amber-400 mb-1">Filing ITR-2 because:</strong>
+                          <ul className="list-disc list-inside space-y-1">
+                            {itrReasons.map((reason, idx) => (
+                              <li key={idx}>{reason}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : (
+                        <div className="text-xs text-green-200/90 bg-green-500/10 border border-green-500/25 p-3 rounded-lg">
+                          <strong className="block text-green-400 mb-0.5">Sahaj Simplified Form</strong>
+                          Resident individual with total income up to ₹50 Lakhs.
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </motion.div>
             )}
           </div>
