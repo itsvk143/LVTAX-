@@ -49,7 +49,7 @@ const faqs = [
 const Home = () => {
   // Countdown State
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  
+
   // Lead Form State
   const [heroFormData, setHeroFormData] = useState({ name: "", phone: "", service: "" });
   const [formStatus, setFormStatus] = useState("idle"); // idle, submitting, success, error
@@ -62,14 +62,14 @@ const Home = () => {
     const calculateTimeLeft = () => {
       const currentYear = new Date().getFullYear();
       let targetDate = new Date(`July 31, ${currentYear} 23:59:59`);
-      
+
       // If July 31st of current year has passed, target next year's
       if (new Date() > targetDate) {
         targetDate = new Date(`July 31, ${currentYear + 1} 23:59:59`);
       }
-      
+
       const difference = +targetDate - +new Date();
-      
+
       if (difference > 0) {
         setTimeLeft({
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -110,7 +110,7 @@ const Home = () => {
         }),
         mode: "no-cors",
       });
-      
+
       setFormStatus("success");
       setHeroFormData({ name: "", phone: "", service: "" });
       alert("Your free consultation request is submitted successfully! Our expert will contact you within 30 minutes.");
@@ -127,7 +127,7 @@ const Home = () => {
 
   return (
     <section className="min-h-screen bg-slate-950 text-[#F8FAFC] overflow-x-hidden font-sans relative">
-      
+
       {/* 1. Dynamic Urgent Announcement Bar */}
       <div className="bg-gradient-to-r from-red-600/90 to-amber-600/90 py-2.5 px-4 text-center text-xs font-semibold tracking-wider flex flex-wrap justify-center items-center gap-2 border-b border-red-500/20 shadow-md">
         <span className="bg-slate-950/40 px-2 py-0.5 rounded text-[10px] uppercase font-bold animate-pulse text-amber-300">
@@ -148,16 +148,16 @@ const Home = () => {
 
       {/* 2. Hero Section (Includes Direct Lead Capture Form) */}
       <div className="container mx-auto px-4 pt-12 pb-16 xl:pt-20 xl:pb-24 relative z-10">
-        
+
         {/* Background Grid Pattern & Glowing Orbs */}
         <div className="absolute top-[-5%] right-[-5%] w-[45%] h-[45%] bg-[#00F5A0]/10 rounded-full blur-[130px] -z-10 pointer-events-none" />
         <div className="absolute bottom-[20%] left-[-5%] w-[45%] h-[45%] bg-[#38BDF8]/10 rounded-full blur-[130px] -z-10 pointer-events-none" />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-center max-w-7xl mx-auto mb-16">
 
           {/* Left Column: High Impact Content & Reviews */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            
+
             {/* Google Reviews Badge */}
             <div className="inline-flex flex-col sm:flex-row items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 rounded-2xl backdrop-blur-md shadow-lg">
               <div className="flex items-center gap-1 text-[#F59E0B]">
@@ -210,7 +210,7 @@ const Home = () => {
           {/* Right Column: Hero High-Conversion Lead Capture Form */}
           <div className="lg:col-span-5 bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl backdrop-blur-xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-24 h-24 bg-[#00F5A0]/5 rounded-full blur-2xl" />
-            
+
             <div className="relative z-10 space-y-4">
               <div className="space-y-1 text-center">
                 <span className="text-[#00F5A0] text-xs font-bold uppercase tracking-wider block">Limited Free Consultations Today</span>
@@ -292,7 +292,7 @@ const Home = () => {
             <div className="bg-slate-900/50 border border-white/5 p-6 rounded-3xl flex flex-col sm:flex-row items-center gap-6 hover:border-[#00F5A0]/20 transition-all duration-500 group shadow-xl">
               <div className="w-[120px] h-[120px] relative shrink-0">
                 <div className="absolute inset-0 border border-[#00F5A0]/20 rounded-full animate-pulse" />
-                <Photo src="/assets/photo.png" strokeColor="#00F5A0" />
+                <Photo src="/assets/photo.png" strokeColor="#00F5A0" objectPosition="top" />
               </div>
               <div className="space-y-2 text-center sm:text-left">
                 <span className="text-[10px] text-[#00F5A0] font-bold tracking-widest uppercase bg-[#00F5A0]/10 px-2.5 py-1 rounded-full">
@@ -470,7 +470,7 @@ const Home = () => {
       {/* 6. Premium Glass Statistics Cards Section */}
       <div className="bg-slate-900/20 border-y border-slate-900 py-20 mb-28 relative overflow-hidden z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] bg-[#38BDF8]/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
-        
+
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="text-center space-y-2 mb-16">
             <span className="text-[#00F5A0] uppercase tracking-widest text-xs font-bold">Why Businesses Trust LV Tax Consultants</span>
@@ -480,14 +480,14 @@ const Home = () => {
 
           {/* 4 Premium Glass Cards with requested HSL/Glass effect */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            
+
             <div className="p-8 rounded-3xl text-center space-y-2 shadow-2xl relative group transition-all duration-300 hover:-translate-y-1"
-                 style={{
-                   backdropFilter: "blur(20px)",
-                   WebkitBackdropFilter: "blur(20px)",
-                   background: "rgba(255, 255, 255, 0.04)",
-                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                 }}>
+              style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}>
               <div className="absolute -top-1 right-2 w-8 h-8 rounded-full bg-[#00F5A0]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="text-4xl md:text-5xl font-black text-[#F8FAFC]">1,200+</div>
               <h4 className="font-bold text-slate-300 text-sm tracking-wider uppercase">Clients Served</h4>
@@ -495,12 +495,12 @@ const Home = () => {
             </div>
 
             <div className="p-8 rounded-3xl text-center space-y-2 shadow-2xl relative group transition-all duration-300 hover:-translate-y-1"
-                 style={{
-                   backdropFilter: "blur(20px)",
-                   WebkitBackdropFilter: "blur(20px)",
-                   background: "rgba(255, 255, 255, 0.04)",
-                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                 }}>
+              style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}>
               <div className="absolute -top-1 right-2 w-8 h-8 rounded-full bg-[#38BDF8]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="text-4xl md:text-5xl font-black text-[#F8FAFC]">2,500+</div>
               <h4 className="font-bold text-slate-300 text-sm tracking-wider uppercase">Returns Filed</h4>
@@ -508,12 +508,12 @@ const Home = () => {
             </div>
 
             <div className="p-8 rounded-3xl text-center space-y-2 shadow-2xl relative group transition-all duration-300 hover:-translate-y-1"
-                 style={{
-                   backdropFilter: "blur(20px)",
-                   WebkitBackdropFilter: "blur(20px)",
-                   background: "rgba(255, 255, 255, 0.04)",
-                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                 }}>
+              style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}>
               <div className="absolute -top-1 right-2 w-8 h-8 rounded-full bg-[#00F5A0]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="text-4xl md:text-5xl font-black text-[#F8FAFC]">10+</div>
               <h4 className="font-bold text-slate-300 text-sm tracking-wider uppercase">Years Experience</h4>
@@ -521,12 +521,12 @@ const Home = () => {
             </div>
 
             <div className="p-8 rounded-3xl text-center space-y-2 shadow-2xl relative group transition-all duration-300 hover:-translate-y-1"
-                 style={{
-                   backdropFilter: "blur(20px)",
-                   WebkitBackdropFilter: "blur(20px)",
-                   background: "rgba(255, 255, 255, 0.04)",
-                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                 }}>
+              style={{
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                background: "rgba(255, 255, 255, 0.04)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+              }}>
               <div className="absolute -top-1 right-2 w-8 h-8 rounded-full bg-[#38BDF8]/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="text-4xl md:text-5xl font-black text-[#00F5A0]">99.8%</div>
               <h4 className="font-bold text-slate-300 text-sm tracking-wider uppercase">Success Rate</h4>
@@ -613,7 +613,7 @@ const Home = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          
+
           {/* Step 1 */}
           <div className="bg-slate-900 border border-white/5 p-6 rounded-2xl text-center relative group shadow-md hover:border-[#00F5A0]/25 transition-all">
             <div className="w-10 h-10 rounded-full bg-[#00F5A0]/20 text-[#00F5A0] font-bold flex items-center justify-center mx-auto mb-4 border border-[#00F5A0]/40">
@@ -664,7 +664,7 @@ const Home = () => {
       {/* 10. Industry & Local SEO Coverage */}
       <div className="container mx-auto px-4 max-w-7xl mb-28 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          
+
           {/* Industry Coverage */}
           <div className="space-y-4">
             <h4 className="text-xl font-bold text-slate-100 flex items-center gap-2">
@@ -777,7 +777,7 @@ const Home = () => {
                 <span className="text-sm md:text-base">{faq.question}</span>
                 <FiChevronDown className={`text-lg shrink-0 transition-transform duration-300 ${openFaqIndex === index ? "rotate-180 text-[#00F5A0]" : "text-slate-400"}`} />
               </button>
-              
+
               <div className={`transition-all duration-300 overflow-hidden ${openFaqIndex === index ? "max-h-[200px]" : "max-h-0"}`}>
                 <div className="p-6 pt-0 border-t border-white/5 text-xs md:text-sm text-slate-400 leading-relaxed font-light">
                   {faq.answer}
