@@ -20,7 +20,7 @@ const TAX_SLABS_NEW = [
   { limit: 1200000, rate: 10 },
   { limit: 1600000, rate: 15 },
   { limit: 2000000, rate: 20 },
-  { limit: 2500000, rate: 25 },
+  { limit: 2400000, rate: 25 },
   { limit: Infinity, rate: 30 },
 ];
 
@@ -40,6 +40,41 @@ const calculateTax = (taxableIncome, slabs) => {
 
   return tax;
 };
+
+const calculateOldRegimeTax = (taxableIncome) => {
+  let initialTax = calculateTax(taxableIncome, TAX_SLABS_OLD);
+  let taxAfterRebate = initialTax;
+
+  // Section 87A Rebate under Old Regime
+  if (taxableIncome <= 500000) {
+    taxAfterRebate = 0;
+  }
+
+  // Add 4% Cess
+  const cess = taxAfterRebate * 0.04;
+  return taxAfterRebate + cess;
+};
+
+const calculateNewRegimeTax = (taxableIncome) => {
+  let initialTax = calculateTax(taxableIncome, TAX_SLABS_NEW);
+  let taxAfterRebate = initialTax;
+
+  // Section 87A Rebate and Marginal Relief under New Regime (AY 2026-27)
+  if (taxableIncome <= 1200000) {
+    taxAfterRebate = 0;
+  } else {
+    // Check for Marginal Relief
+    const excessIncome = taxableIncome - 1200000;
+    if (initialTax > excessIncome) {
+      taxAfterRebate = excessIncome;
+    }
+  }
+
+  // Add 4% Cess
+  const cess = taxAfterRebate * 0.04;
+  return taxAfterRebate + cess;
+};
+
 
 const IncomeTaxCalculator = () => {
   const [ctc, setCtc] = useState("");
@@ -112,16 +147,13 @@ const IncomeTaxCalculator = () => {
       otherDeductionsValue;
 
     const taxableIncomeOld = Math.max(ctcValue - totalDeductionsOld, 0);
-    let taxOld = calculateTax(taxableIncomeOld, TAX_SLABS_OLD);
+    const taxOld = calculateOldRegimeTax(taxableIncomeOld);
 
     const taxableIncomeNew = Math.max(ctcValue - standardDeductionNew, 0);
-    let taxNew = calculateTax(taxableIncomeNew, TAX_SLABS_NEW);
+    const taxNew = calculateNewRegimeTax(taxableIncomeNew);
 
-    if (taxOld <= 12500) taxOld = 0;
-    if (taxNew <= 60000) taxNew = 0;
-
-    setOldRegimeTax(taxOld.toLocaleString("en-IN"));
-    setNewRegimeTax(taxNew.toLocaleString("en-IN"));
+    setOldRegimeTax(Math.round(taxOld).toLocaleString("en-IN"));
+    setNewRegimeTax(Math.round(taxNew).toLocaleString("en-IN"));
 
     // Expert Calculation (Maximizing deductions)
     const expert80C = 150000; // Maximize 80C if not already maxed
@@ -146,16 +178,13 @@ const IncomeTaxCalculator = () => {
       deduction80DselfValue;
 
     const expertTaxableIncomeOld = Math.max(ctcValue - expertDeductionsOld, 0);
-    let expertTaxOld = calculateTax(expertTaxableIncomeOld, TAX_SLABS_OLD);
+    const expertTaxOld = calculateOldRegimeTax(expertTaxableIncomeOld);
 
     const expertTaxableIncomeNew = Math.max(ctcValue - standardDeductionNew, 0);
-    let expertTaxNew = calculateTax(expertTaxableIncomeNew, TAX_SLABS_NEW);
+    const expertTaxNew = calculateNewRegimeTax(expertTaxableIncomeNew);
 
-    if (expertTaxOld <= 12500) expertTaxOld = 0;
-    if (expertTaxNew <= 52500) expertTaxNew = 0;
-
-    setExpertOldRegimeTax(expertTaxOld.toLocaleString("en-IN"));
-    setExpertNewRegimeTax(expertTaxNew.toLocaleString("en-IN"));
+    setExpertOldRegimeTax(Math.round(expertTaxOld).toLocaleString("en-IN"));
+    setExpertNewRegimeTax(Math.round(expertTaxNew).toLocaleString("en-IN"));
   };
 
   return (
