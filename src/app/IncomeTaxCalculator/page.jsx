@@ -60,12 +60,12 @@ const calculateNewRegimeTax = (taxableIncome) => {
   let taxAfterRebate = initialTax;
 
   // Section 87A Rebate and Marginal Relief under New Regime (AY 2026-27)
-  // Maximum Rebate is ₹75,000 (making taxable income up to ₹13,00,000 completely tax-free)
-  if (taxableIncome <= 1300000) {
+  // Taxable income up to ₹12,75,000 is completely tax-free (rebate reduces tax to ₹0)
+  if (taxableIncome <= 1275000) {
     taxAfterRebate = 0;
   } else {
-    // Check for Marginal Relief starting above ₹13,00,000
-    const excessIncome = taxableIncome - 1300000;
+    // Check for Marginal Relief starting above ₹12,75,000
+    const excessIncome = taxableIncome - 1275000;
     if (initialTax > excessIncome) {
       taxAfterRebate = excessIncome;
     }
@@ -75,6 +75,7 @@ const calculateNewRegimeTax = (taxableIncome) => {
   const cess = taxAfterRebate * 0.04;
   return taxAfterRebate + cess;
 };
+
 
 
 
