@@ -105,6 +105,11 @@ const IncomeTaxCalculator = () => {
   const [recommendedITR, setRecommendedITR] = useState(null);
   const [itrReasons, setItrReasons] = useState([]);
 
+  // Expert strategy states
+  const [recommendedRegime, setRecommendedRegime] = useState(null);
+  const [minTax, setMinTax] = useState(null);
+  const [savingsAmount, setSavingsAmount] = useState(null);
+
   const handleInputChange = (setter) => (e) => {
     let value = e.target.value.replace(/,/g, "");
     if (!isNaN(value) && value !== "") {
@@ -219,6 +224,35 @@ const IncomeTaxCalculator = () => {
 
     setRecommendedITR(form);
     setItrReasons(reasons);
+
+    // Determine the absolute minimum tax across all four scenarios
+    const normalOld = Math.round(taxOld);
+    const normalNew = Math.round(taxNew);
+    const optimizedOld = Math.round(expertTaxOld);
+    const optimizedNew = Math.round(expertTaxNew);
+
+    let minTaxVal = normalNew;
+    let recommendation = "New Tax Regime";
+
+    if (normalOld < minTaxVal) {
+      minTaxVal = normalOld;
+      recommendation = "Old Tax Regime";
+    }
+    if (optimizedOld < minTaxVal) {
+      minTaxVal = optimizedOld;
+      recommendation = "Old Tax Regime (Expert Optimized)";
+    }
+    if (optimizedNew < minTaxVal) {
+      minTaxVal = optimizedNew;
+      recommendation = "New Tax Regime (Expert Optimized)";
+    }
+
+    const standardPaid = Math.min(normalOld, normalNew);
+    const potentialSavings = Math.max(standardPaid - minTaxVal, 0);
+
+    setMinTax(minTaxVal.toLocaleString("en-IN"));
+    setRecommendedRegime(recommendation);
+    setSavingsAmount(potentialSavings.toLocaleString("en-IN"));
   };
 
   return (
@@ -351,24 +385,39 @@ const IncomeTaxCalculator = () => {
                 </div>
 
                 {/* Expert Results */}
-                <div className="bg-slate-900/60 p-6 rounded-xl border border-yellow-500/30 relative overflow-hidden">
+                <div className="bg-slate-900/60 p-6 rounded-xl border border-yellow-500/30 relative overflow-hidden flex flex-col justify-between">
                   <div className="absolute top-0 right-0 px-3 py-1 bg-yellow-500/20 text-yellow-500 text-xs font-bold rounded-bl-lg">
                     EXPERT OPTIMIZED
                   </div>
-                  <h3 className="text-lg font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
-                    💡 Potential Savings
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-400">Old Regime (Opt)</span>
-                      <span className="text-2xl font-bold text-blue-400">
-                        ₹{expertOldRegimeTax}
-                      </span>
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-200 mb-4 border-b border-gray-700 pb-2">
+                      💡 Recommended Strategy
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <span className="text-xs text-gray-400 block mb-0.5">Best Strategy</span>
+                        <span className="text-md font-bold text-yellow-400">
+                          {recommendedRegime}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-xs text-gray-400 block mb-0.5">Minimum Tax Payable</span>
+                        <span className="text-3xl font-extrabold text-green-400 font-mono">
+                          ₹{minTax}
+                        </span>
+                      </div>
+                      {parseFloat(savingsAmount.replace(/,/g, "")) > 0 ? (
+                        <div className="text-xs text-green-300 bg-green-500/10 border border-green-500/20 p-2 rounded-lg flex items-center gap-1.5 mt-2">
+                          <span>🎉</span>
+                          <span>Save <strong>₹{savingsAmount}</strong> with expert planning!</span>
+                        </div>
+                      ) : (
+                        <div className="text-xs text-blue-300 bg-blue-500/10 border border-blue-500/20 p-2 rounded-lg flex items-center gap-1.5 mt-2">
+                          <span>✅</span>
+                          <span>You are on the most tax-efficient regime!</span>
+                        </div>
+                      )}
                     </div>
-                    {/* <div className="flex justify-between items-center">
-                      <span className="text-gray-400">New Regime (Opt)</span>
-                      <span className="text-xl font-bold text-gray-300">₹{expertNewRegimeTax}</span>
-                    </div> */}
                   </div>
                 </div>
 
