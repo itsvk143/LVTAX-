@@ -24,7 +24,6 @@ import {
 import { FaStar, FaWhatsapp, FaRegHandshake } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
-import MarqueeNews from "@/components/MarqueeNews";
 
 // FAQ Data
 const faqs = [
@@ -143,8 +142,6 @@ const Home = () => {
           <span className="text-[11px] font-sans font-normal text-amber-200">Remaining</span>
         </div>
       </div>
-
-      <MarqueeNews />
 
       {/* 2. Hero Section (Includes Direct Lead Capture Form) */}
       <div className="container mx-auto px-4 pt-12 pb-16 xl:pt-20 xl:pb-24 relative z-10">

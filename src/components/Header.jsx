@@ -3,13 +3,11 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Nav from "./Nav";
 import MobileNav from "./MobileNav";
-import MarqueeNews from "@/components/MarqueeNews";
 
 const Header = () => {
   return (
     <header className="py-8 xl:py-12 text-white">
-      {/* News Ticker (Marquee) at the Top */}
-      {/* <MarqueeNews /><br /> */}
+
 
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo / Branding */}
